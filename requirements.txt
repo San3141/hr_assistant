@@ -1,0 +1,12 @@
+langchain
+langchain-community
+langchainhub
+sqlalchemy
+pydantic
+streamlit
+nest-asyncio
+tiktoken
+python-dotenv
+langchain-google-genai
+google-generativeai
+chromadb
