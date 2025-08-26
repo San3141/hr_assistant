@@ -52,7 +52,6 @@ tools = [
     fetch_employee_leaves,
     mail_writer,
     hr_policy_search,
-    get_context,
 ]
 
 

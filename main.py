@@ -2,9 +2,10 @@ import streamlit as st
 from agent import create_agent
 from langchain.memory import ConversationBufferWindowMemory,ConversationBufferMemory
 from langchain_community.chat_message_histories import StreamlitChatMessageHistory
+import scrubadub
 
-# import nest_asyncio
-# nest_asyncio.apply()
+
+scrubber = scrubadub.Scrubber()
 
 import asyncio
 loop = asyncio.new_event_loop()
@@ -28,11 +29,15 @@ if user_input := st.chat_input("Ask me anything about HR policies, leave, etc...
     st.session_state["messages"].append({"role": "user", "content": user_input})
     try:
         # print("Memory Before Call", memory.load_memory_variables({}))
-        response = agent.invoke({"input": user_input})
+        clean_query = scrubber.clean(user_input)
+        response = agent.invoke({"input": clean_query})
         # print("Memory", memory.load_memory_variables({}))
         answer = response.get("output")
+        # clean_answer = scrubber.clean(answer)
     except Exception as e:
         answer = f" Error: {str(e)}"
     with st.chat_message("assistant"):
         st.markdown(answer)
     st.session_state["messages"].append({"role": "assistant", "content": answer})
+
+  

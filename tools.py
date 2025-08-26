@@ -4,12 +4,12 @@ from typing import List
 from form_policy import form
 from get_llm import get_llm
 from mail_policy import mail
-from rag_pipeline import build_vectorestore
+from rag_pipeline import load_vector_store
 import nest_asyncio
 
 
 llm = get_llm()
-vector_store = build_vectorestore()
+vector_store = load_vector_store()
 form_chain = form()
 retriever = vector_store.as_retriever(search_kwargs={"k": 3})
 mail_chain = mail()
